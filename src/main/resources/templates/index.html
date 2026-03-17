@@ -9,6 +9,10 @@
 
 <div class="container mt-4">
 
+<div th:if="${success}" class="alert alert-success">
+    <span th:text="${success}"></span>
+</div>
+
 <h2>Usuarios</h2>
 
 <a href="/register" class="btn btn-primary mb-3">Registrar</a>

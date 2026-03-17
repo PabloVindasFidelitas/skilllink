@@ -14,10 +14,16 @@
 <form action="/save" method="post" th:object="${user}">
 
 <input type="text" th:field="*{name}" placeholder="Nombre" class="form-control mb-2"/>
+<div th:errors="*{name}" class="text-danger"></div>
+
 <input type="email" th:field="*{email}" placeholder="Email" class="form-control mb-2"/>
+<div th:errors="*{email}" class="text-danger"></div>
+
 <input type="text" th:field="*{skill}" placeholder="Skill" class="form-control mb-2"/>
+<div th:errors="*{skill}" class="text-danger"></div>
 
 <button class="btn btn-success">Guardar</button>
+<a href="/" class="btn btn-secondary">Volver</a>
 
 </form>
 

@@ -1,6 +1,7 @@
 package com.skilllink.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "users")
@@ -10,8 +11,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "El nombre es obligatorio")
     private String name;
+
+    @NotBlank(message = "El email es obligatorio")
+    @Email(message = "Debe ingresar un correo válido")
     private String email;
+
+    @NotBlank(message = "La habilidad es obligatoria")
     private String skill;
 
     public Long getId() { return id; }

@@ -19,7 +19,7 @@ public class UserService {
         return repo.findAll();
     }
 
-    public void save(User user){
+    public void saveUser(User user){
         repo.save(user);
     }
 

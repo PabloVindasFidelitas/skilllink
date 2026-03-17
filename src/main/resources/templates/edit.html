@@ -16,10 +16,16 @@
 <input type="hidden" th:field="*{id}"/>
 
 <input type="text" th:field="*{name}" class="form-control mb-2"/>
+<div th:errors="*{name}" class="text-danger"></div>
+
 <input type="email" th:field="*{email}" class="form-control mb-2"/>
+<div th:errors="*{email}" class="text-danger"></div>
+
 <input type="text" th:field="*{skill}" class="form-control mb-2"/>
+<div th:errors="*{skill}" class="text-danger"></div>
 
 <button class="btn btn-warning">Actualizar</button>
+<a href="/" class="btn btn-secondary">Volver</a>
 
 </form>
 
