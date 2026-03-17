@@ -19,7 +19,15 @@ public class UserService {
         return repo.findAll();
     }
 
-    public void saveUser(User user){
+    public void save(User user){
         repo.save(user);
+    }
+
+    public User getUserById(Long id){
+        return repo.findById(id).orElse(null);
+    }
+
+    public void deleteUser(Long id){
+        repo.deleteById(id);
     }
 }
