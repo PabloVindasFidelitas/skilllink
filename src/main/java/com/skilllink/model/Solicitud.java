@@ -12,10 +12,9 @@ public class Solicitud {
     private String estudiante;
     private String tutor;
     private String materia;
-    private String estado;
+    private String estado = "pendiente";
 
     public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
 
     public String getEstudiante() { return estudiante; }
     public void setEstudiante(String estudiante) { this.estudiante = estudiante; }
