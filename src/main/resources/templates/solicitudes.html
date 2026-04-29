@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Solicitar Tutoría</title>
+</head>
+<body>
+
+<h2>Solicitar Tutoría</h2>
+
+<form action="/solicitudes/save" method="post">
+    <input type="text" name="estudiante" placeholder="Tu nombre" required><br><br>
+    <input type="text" name="tutor" placeholder="Tutor" required><br><br>
+    <input type="text" name="materia" placeholder="Materia" required><br><br>
+
+    <button type="submit">Enviar solicitud</button>
+</form>
+
+</body>
+</html>
