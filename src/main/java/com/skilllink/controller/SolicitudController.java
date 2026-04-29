@@ -17,14 +17,25 @@ public class SolicitudController {
         this.service = service;
     }
 
-    // FORMULARIO
     @GetMapping("/form")
-    public String form(Model model) {
-        model.addAttribute("solicitud", new Solicitud());
+    public String form(@RequestParam(required = false) String tutor,
+                       @RequestParam(required = false) String materia,
+                       Model model) {
+
+        Solicitud solicitud = new Solicitud();
+
+        if (tutor != null) {
+            solicitud.setTutor(tutor);
+        }
+
+        if (materia != null) {
+            solicitud.setMateria(materia);
+        }
+
+        model.addAttribute("solicitud", solicitud);
         return "solicitud";
     }
 
-    // GUARDAR SOLICITUD (HU-09)
     @PostMapping("/save")
     public String guardar(Solicitud solicitud, RedirectAttributes redirect) {
         service.guardar(solicitud);
@@ -32,11 +43,16 @@ public class SolicitudController {
         return "redirect:/";
     }
 
-    // VER RECIBIDAS (HU-10)
+    @GetMapping
+    public String listarTodas(Model model) {
+        model.addAttribute("solicitudes", service.listarTodas());
+        return "solicitudes";
+    }
+
     @GetMapping("/recibidas")
     public String recibidas(@RequestParam(required = false) String tutor, Model model) {
 
-        if (tutor != null) {
+        if (tutor != null && !tutor.trim().isEmpty()) {
             model.addAttribute("solicitudes", service.obtenerPorTutor(tutor));
         } else {
             model.addAttribute("solicitudes", service.listarTodas());
@@ -45,10 +61,29 @@ public class SolicitudController {
         return "solicitudes";
     }
 
-    // VER ENVIADAS (HU-11)
     @GetMapping("/enviadas")
-    public String enviadas(@RequestParam String estudiante, Model model) {
-        model.addAttribute("solicitudes", service.obtenerPorEstudiante(estudiante));
+    public String enviadas(@RequestParam(required = false) String estudiante, Model model) {
+
+        if (estudiante != null && !estudiante.trim().isEmpty()) {
+            model.addAttribute("solicitudes", service.obtenerPorEstudiante(estudiante));
+        } else {
+            model.addAttribute("solicitudes", service.listarTodas());
+        }
+
         return "solicitudes";
+    }
+
+    @GetMapping("/aceptar/{id}")
+    public String aceptar(@PathVariable Long id, RedirectAttributes redirect) {
+        service.aceptarSolicitud(id);
+        redirect.addFlashAttribute("success", "Solicitud aceptada correctamente");
+        return "redirect:/solicitudes";
+    }
+
+    @GetMapping("/rechazar/{id}")
+    public String rechazar(@PathVariable Long id, RedirectAttributes redirect) {
+        service.rechazarSolicitud(id);
+        redirect.addFlashAttribute("success", "Solicitud rechazada correctamente");
+        return "redirect:/solicitudes";
     }
 }

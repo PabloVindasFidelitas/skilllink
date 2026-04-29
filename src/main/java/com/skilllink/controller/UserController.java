@@ -19,8 +19,15 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public String home(Model model){
-        model.addAttribute("users", service.getAllUsers());
+    public String home(@RequestParam(required = false) String skill, Model model){
+
+        if (skill != null && !skill.trim().isEmpty()) {
+            model.addAttribute("users", service.findBySkill(skill));
+        } else {
+            model.addAttribute("users", service.getAllUsers());
+        }
+
+        model.addAttribute("skill", skill);
         return "index";
     }
 
@@ -58,7 +65,7 @@ public class UserController {
         }
 
         service.saveUser(user);
-        redirect.addFlashAttribute("success", "Usuario actualizado");
+        redirect.addFlashAttribute("success", "Usuario actualizado correctamente");
 
         return "redirect:/";
     }
@@ -66,7 +73,7 @@ public class UserController {
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable Long id, RedirectAttributes redirect){
         service.deleteUser(id);
-        redirect.addFlashAttribute("success", "Usuario eliminado");
+        redirect.addFlashAttribute("success", "Usuario eliminado correctamente");
         return "redirect:/";
     }
 }

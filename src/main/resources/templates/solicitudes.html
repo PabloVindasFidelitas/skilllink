@@ -1,19 +1,62 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Solicitar Tutoría</title>
+    <title>Solicitudes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
 
-<h2>Solicitar Tutoría</h2>
+<div class="container mt-4">
 
-<form action="/solicitudes/save" method="post">
-    <input type="text" name="estudiante" placeholder="Tu nombre" required><br><br>
-    <input type="text" name="tutor" placeholder="Tutor" required><br><br>
-    <input type="text" name="materia" placeholder="Materia" required><br><br>
+    <div th:if="${success}" class="alert alert-success">
+        <span th:text="${success}"></span>
+    </div>
 
-    <button type="submit">Enviar solicitud</button>
-</form>
+    <h2>Solicitudes de Tutoría</h2>
+
+    <div class="mb-3">
+        <a href="/" class="btn btn-secondary">Volver al inicio</a>
+        <a href="/solicitudes/form" class="btn btn-success">Nueva solicitud</a>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Estudiante</th>
+                <th>Tutor</th>
+                <th>Materia</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="s : ${solicitudes}">
+                <td th:text="${s.estudiante}"></td>
+                <td th:text="${s.tutor}"></td>
+                <td th:text="${s.materia}"></td>
+                <td th:text="${s.estado}"></td>
+                <td>
+                    <a th:href="@{/solicitudes/aceptar/{id}(id=${s.id})}"
+                       class="btn btn-success btn-sm">
+                        Aceptar
+                    </a>
+
+                    <a th:href="@{/solicitudes/rechazar/{id}(id=${s.id})}"
+                       class="btn btn-danger btn-sm">
+                        Rechazar
+                    </a>
+                </td>
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(solicitudes)}">
+                <td colspan="5" class="text-center">No hay solicitudes registradas.</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
 
 </body>
 </html>
