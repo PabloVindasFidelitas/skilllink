@@ -1,6 +1,7 @@
 package com.skilllink.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Solicitud {
@@ -9,9 +10,15 @@ public class Solicitud {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "El estudiante es obligatorio")
     private String estudiante;
+
+    @NotBlank(message = "El tutor es obligatorio")
     private String tutor;
+
+    @NotBlank(message = "La materia es obligatoria")
     private String materia;
+
     private String estado = "pendiente";
 
     public Long getId() { return id; }

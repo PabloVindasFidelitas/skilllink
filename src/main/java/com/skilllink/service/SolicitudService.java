@@ -33,4 +33,24 @@ public class SolicitudService {
     public List<Solicitud> listarTodas() {
         return repo.findAll();
     }
+
+    public Solicitud obtenerPorId(Long id) {
+        return repo.findById(id).orElse(null);
+    }
+
+    public void aceptarSolicitud(Long id) {
+        Solicitud s = obtenerPorId(id);
+        if (s != null) {
+            s.setEstado("aceptada");
+            repo.save(s);
+        }
+    }
+
+    public void rechazarSolicitud(Long id) {
+        Solicitud s = obtenerPorId(id);
+        if (s != null) {
+            s.setEstado("rechazada");
+            repo.save(s);
+        }
+    }
 }

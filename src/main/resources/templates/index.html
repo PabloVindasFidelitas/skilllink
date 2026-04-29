@@ -15,8 +15,11 @@
 
     <h2>Usuarios</h2>
 
-    <a href="/register" class="btn btn-primary mb-3">Registrar</a>
-    <a href="/solicitudes/form" class="btn btn-success mb-3">Solicitar Tutoría</a>
+    <div class="mb-3">
+        <a href="/register" class="btn btn-primary">Registrar</a>
+        <a href="/solicitudes/form" class="btn btn-success">Solicitar Tutoría</a>
+        <a href="/solicitudes" class="btn btn-dark">Ver solicitudes</a>
+    </div>
 
     <table class="table mt-3">
         <thead>
@@ -37,9 +40,9 @@
                     <a th:href="@{/edit/{id}(id=${user.id})}" class="btn btn-warning btn-sm">Editar</a>
                     <a th:href="@{/delete/{id}(id=${user.id})}" class="btn btn-danger btn-sm">Eliminar</a>
 
-                    <a th:href="@{/solicitudes/form?tutor=${user.name}}" 
+                    <a th:href="@{/solicitudes/form(tutor=${user.name}, materia=${user.skill})}"
                        class="btn btn-success btn-sm">
-                       Solicitar
+                        Solicitar
                     </a>
                 </td>
             </tr>
